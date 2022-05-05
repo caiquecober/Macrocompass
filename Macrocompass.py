@@ -1,5 +1,3 @@
-#ANP_DISTRIBUIDORAS
-from distutils import text_file
 import streamlit as st
 import pandas as pd
 #pacotes utilizados
@@ -17,7 +15,6 @@ import base64
 import io
 api_key = 'daece1e7e3daf0bcd26c06cdef0009bb'
 ############################################################## Streamlit APP ##################################################################################################
-
 html_header="""
 <head>
 <style> @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&display=swap'); 
@@ -29,7 +26,7 @@ html_header="""
 <meta name="author" content="@Cober">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<h1 style="font-size:300%; color:#034B88; font-family:Mulish; font-weight:800"> MacroCompass Visualizer   
+<h1 style="font-size:300%; color:#034B88; font-family:Mulish; font-weight:800"> MacroCompass  Fred Visualizer   
  <hr style= "  display: block;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -50,9 +47,14 @@ html_line_2="""
   border-width: 1.5px;">
 """
 
-link_imagem_stonex = 'https://raw.githubusercontent.com/caiquecober/Research/master/35131080148.png'
+html_br="""
+<br>
+"""
 
-st.set_page_config(page_title="StoneX - Energy", page_icon=link_imagem_stonex, layout="wide")
+#cofigs inciais
+link_imagem_stonex = 'https://raw.githubusercontent.com/caiquecober/Research/master/LOGO_STONEX.png'
+
+st.set_page_config(page_title="StoneX - Macro", page_icon=link_imagem_stonex, layout="wide")
 
 st.markdown('<style>body{background-color: #D2D5D4}</style>',unsafe_allow_html=True)
 st.markdown(html_header, unsafe_allow_html=True)
@@ -61,8 +63,8 @@ st.markdown(""" <style>
 footer {visibility: hidden;}
 </style> """, unsafe_allow_html=True)
 
-#Macrocompass and microhive functions
 
+## funções utilizadas na aplicação!
 def ts_plot_mc(code, nome, source, units, chart):
     df  =  get_obs(code)
     df =  df.set_index('date')
@@ -70,21 +72,21 @@ def ts_plot_mc(code, nome, source, units, chart):
     # define what type of chart will be made!
     
     if chart == 'percent_change_12':
-        df = df.pct_change().rolling(12).sum()
-        units = ' Percent Change (%) - 12 Month Rolling Sum'
+        df = df.pct_change(12)
+        units = 'Year over year percent change'
     elif chart =='percent_change':
          df = df.pct_change()
-         units = 'Percent Change (%)'
+         units = 'Percent change(%)'
     elif chart == 'nominal_diff':
          df = df.diff()
-         units=  'First Diference'
+         units=  'first diference'
     else: 
         print('Normal Config')
 
     
     fig = go.Figure()
+    #colors = [ '#0A3254', '#B2292E','#E0D253','#7AADD4','#336094']
     colors = ['#034B88', '#B55802', '#000000']
-
 
 
     for i in range(len(df.columns)):
@@ -118,10 +120,10 @@ def ts_plot_mc(code, nome, source, units, chart):
                              yaxis_title=units, 
                              template='plotly_white',
                              font_family="Verdana",
-                             images=[dict(source='https://raw.githubusercontent.com/caiquecober/Research/master/35131080148.png',#'https://raw.githubusercontent.com/caiquecober/Research/master/LOGO_STONEX.png',
+                             images=[dict(source='https://raw.githubusercontent.com/caiquecober/Research/master/35131080148.png',
                                  xref="paper", yref="paper",
                                  x=0.5, y=0.5,
-                                 sizex=0.7, sizey=0.7,
+                                 sizex=0.55, sizey=0.55,
                                  opacity=0.2,
                                  xanchor="center",
                                  yanchor="middle",
@@ -139,6 +141,9 @@ def ts_plot_mc(code, nome, source, units, chart):
                                  #yaxis_tickformat = ',.0%'                                
     
                                  )
+    
+    if chart =='percent_change' or  chart == 'percent_change_12':
+            fig.update_layout(yaxis= { 'tickformat': ',.2%'})
                                  
     return fig
 
@@ -194,18 +199,18 @@ def get_series(id_selected):
 
 ################################################ Streamlit App #########################################################################
 
+#Options headers
+col1, col2, col3 = st.columns(3)
+fred_code = col1.text_input('Código do FRED', value="CPILFESL")
+titulo = col2.text_input('Título do Gráfico', value="Inflação dos EUA")
 
+st.markdown(html_line_2, unsafe_allow_html=True)
 
-fred_code = st.text_input('Chose Fred code to Visualize Chart', value="CPILFESL")
-# fred_name = st.text_input('Name', value="CPILFESL")
-# fred_unit = st.text_input('Unit', value="CPILFESL")
-
-
-titulo, units  = get_series(fred_code)
+_ , units  = get_series(fred_code)
 
 #generate figures
-fig = ts_plot_mc(fred_code, titulo, 'Source: FRED, Macro Compass.', units, 'Normal')
-fig1 = ts_plot_mc(fred_code, titulo, 'Source: FRED, Macro Compass.', units, 'percent_change')
+fig = ts_plot_mc(fred_code, titulo, 'Source: FRED, MacroCompass.',units,  'Normal')
+fig1 = ts_plot_mc(fred_code, titulo, 'Source: FRED, MacroCompass.', units, 'percent_change')
 fig2 = ts_plot_mc(fred_code, titulo, 'Source: FRED, Macro Compass.', units, 'percent_change_12')
 fig3 = ts_plot_mc(fred_code, titulo, 'Source: FRED, Macro Compass.', units, 'nominal_diff')
 
@@ -215,42 +220,60 @@ col2.plotly_chart(fig1,use_container_width=True)
 col1.plotly_chart(fig2,use_container_width=True)
 col2.plotly_chart(fig3,use_container_width=True)
 
-# st.markdown(html_line_2, unsafe_allow_html=True)
-# fig1 = ts_plot_mc('MORTGAGE30US', 'Evolution the 30 Year Fixed Mortagade rate', 'Source: FRED, Macro Compass.', 'Index')
-# fig2 = ts_plot_mc('CPILFESL','CPI excluding food and energy', 'Source: FRED, Macro Compass.','Percent Change (%)')
-
-# col1, col2 = st.columns(2)
-# col1.plotly_chart(fig1,use_container_width=True)
-# col2.plotly_chart(fig2, use_container_width=True)
-
 #################################### download button ###################################################################################
+
+#codificando os gráficos
 buffer = io.StringIO()
-fig2.write_html(buffer, include_plotlyjs='cdn')
+fig.write_html(buffer, include_plotlyjs='cdn')
 html_bytes = buffer.getvalue().encode()
 
 buffer = io.StringIO()
-fig3.write_html(buffer, include_plotlyjs='cdn')
+fig1.write_html(buffer, include_plotlyjs='cdn')
 html_bytes1 = buffer.getvalue().encode()
 
-col1,col2 = st.columns(2)
+buffer = io.StringIO()
+fig2.write_html(buffer, include_plotlyjs='cdn')
+html_bytes2 = buffer.getvalue().encode()
+
+buffer = io.StringIO()
+fig3.write_html(buffer, include_plotlyjs='cdn')
+html_bytes3 = buffer.getvalue().encode()
+
+
+#layout dos bottons
+st.markdown(html_line_2, unsafe_allow_html=True)
+st.markdown(html_br, unsafe_allow_html=True)
+col1,col2, col3, col4 = st.columns(4)
 
 col1.download_button(
-    label='Download Chart HTML',
+    label='Download HTML fig',
     data=html_bytes,
     file_name=f'{fred_code}.html',
     mime='text/html')
 
 col2.download_button(
-    label='Download Chart HTML',
+    label='Download HTML fig1',
     data=html_bytes1,
     file_name=f'{fred_code}.html',
     mime='text/html')
 
 
+
+col3.download_button(
+    label='Download HTML fig2',
+    data=html_bytes2,
+    file_name=f'{fred_code}.html',
+    mime='text/html')
+
+col4.download_button(
+    label='Download HTML fig3',
+    data=html_bytes3,
+    file_name=f'{fred_code}.html',
+    mime='text/html')
+
+
 ########################################### banner final ###############################
-html_br="""
-<br>
-"""
+
 st.markdown(html_br, unsafe_allow_html=True)
 
 html_line="""
@@ -269,3 +292,11 @@ html_line="""
 <p style="color:Gainsboro; text-align: right;">Desenvolvido por: Caíque Cober</p>
 """
 st.markdown(html_line, unsafe_allow_html=True)
+
+
+
+    
+
+  
+
+
