@@ -201,8 +201,8 @@ def get_series(id_selected):
 
 #Options headers
 col1, col2,_, col3 = st.columns((2,2,1,2))
-fred_code = col1.text_input('FRED code', value="CPILFESL")
-titulo = col2.text_input('Chart Title', value="US inflation - ex energy and food")
+fred_code = col1.text_input('##**FRED code**', value="CPILFESL")
+titulo = col2.text_input('##**Chart Title**', value="US inflation - ex energy and food")
 
 st.markdown(html_line_2, unsafe_allow_html=True)
 
