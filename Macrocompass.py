@@ -207,7 +207,7 @@ titulo = col2.text_input('Chart Title', value="US inflation - ex energy and food
 st.markdown(html_line_2, unsafe_allow_html=True)
 
 title , units  = get_series(fred_code)
-col3.markdown(f'sugested_title:\{title}')
+col3.markdown(f' Sugested Title:\{title}')
 
 #generate figures
 fig = ts_plot_mc(fred_code, titulo, 'Source: FRED, MacroCompass.',units,  'Normal')
