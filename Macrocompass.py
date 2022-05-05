@@ -208,7 +208,7 @@ st.markdown(html_line_2, unsafe_allow_html=True)
 
 title , units  = get_series(fred_code)
 col3.text(f'sugested_title:
-          {title}')
+            {title}')
 
 #generate figures
 fig = ts_plot_mc(fred_code, titulo, 'Source: FRED, MacroCompass.',units,  'Normal')
