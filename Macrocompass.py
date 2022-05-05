@@ -22,7 +22,7 @@ html_header="""
 <title>StoneX - Energy </title>
 <meta charset="utf-8">
 <meta name="keywords" content="StoneX, visualizer, data">
-<meta name="description" content="StoneX Data Project">
+<meta name="description" content="c0data project Data Project">
 <meta name="author" content="@Cober">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -52,9 +52,9 @@ html_br="""
 """
 
 #cofigs inciais
-link_imagem_stonex = 'https://raw.githubusercontent.com/caiquecober/Research/master/LOGO_STONEX.png'
+link_imagem_stonex = 'https://raw.githubusercontent.com/caiquecober/Research/master/35131080148.png'
 
-st.set_page_config(page_title="StoneX - Macro", page_icon=link_imagem_stonex, layout="wide")
+st.set_page_config(page_title="MacroCompass", page_icon=link_imagem_stonex, layout="wide")
 
 st.markdown('<style>body{background-color: #D2D5D4}</style>',unsafe_allow_html=True)
 st.markdown(html_header, unsafe_allow_html=True)
@@ -201,12 +201,13 @@ def get_series(id_selected):
 
 #Options headers
 col1, col2, col3 = st.columns(3)
-fred_code = col1.text_input('Código do FRED', value="CPILFESL")
-titulo = col2.text_input('Título do Gráfico', value="Inflação dos EUA")
+fred_code = col1.text_input('FRED code', value="CPILFESL")
+titulo = col2.text_input('Chart Title', value="US inflation - ex energy and food")
 
 st.markdown(html_line_2, unsafe_allow_html=True)
 
-_ , units  = get_series(fred_code)
+title , units  = get_series(fred_code)
+col3.text(f'sugested_title:{title}'
 
 #generate figures
 fig = ts_plot_mc(fred_code, titulo, 'Source: FRED, MacroCompass.',units,  'Normal')
