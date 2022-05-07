@@ -275,7 +275,7 @@ col4.download_button(
 ########################################### Gráfico Pessoal ###############################
 
 
-def ts_plot_mc(df, nome, source, units, chart):
+def ts_plot_unique(df, nome, source, units, chart):
     fig = go.Figure()
     #colors = [ '#0A3254', '#B2292E','#E0D253','#7AADD4','#336094']
     colors = ['#034B88', '#B55802', '#000000']
@@ -340,6 +340,9 @@ def ts_plot_mc(df, nome, source, units, chart):
     return fig
 
 
+
+st.markdown(html_line_2, unsafe_allow_html=True)
+
 col1, col2, col3, col4,col5  = st.columns(5)
 uploaded_file = col1.file_uploader('Choose File')
 index_name =  col2.text_input('Index column name', 'Date')
@@ -347,9 +350,12 @@ titulo1 =  col3.text_input('Title name', 'title')
 units1 =  col4.text_input('Unit ', 'index')
 source1 =  col5.text_input('Source name', 'Date')
 
+st.markdown(html_line_2, unsafe_allow_html=True)
 if uploaded_file is not None:
     df1=pd.read_csv(uploaded_file)
-    charts =  ts_plot_mc(df1, titulo1,source1,units1, 'Normal')
+    fig =  ts_plot_unique(df1, titulo1,source1,units1, 'Normal')
+    st.plotly_chart(fig, use_container_width=True)
+    
 
 
 
