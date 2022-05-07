@@ -272,6 +272,87 @@ col4.download_button(
     file_name=f'{fred_code}.html',
     mime='text/html')
 
+########################################### Gráfico Pessoal ###############################
+
+
+def ts_plot_mc(df, nome, source, units, chart):
+    fig = go.Figure()
+    #colors = [ '#0A3254', '#B2292E','#E0D253','#7AADD4','#336094']
+    colors = ['#034B88', '#B55802', '#000000']
+
+
+    for i in range(len(df.columns)):
+        fig.add_trace(go.Scatter(
+                x=df.index, y=df.iloc[:, i], line=dict(color=colors[i], width=3), name=df.columns[i]))
+
+    
+    fig.add_annotation(
+    text = (f"{source}")
+    , showarrow=False
+    , x = 0
+    , y = -0.2
+    , xref='paper'
+    , yref='paper' 
+    , xanchor='left'
+    , yanchor='bottom'
+    , xshift=-1
+    , yshift=-5
+    , font=dict(size=10, color="grey")
+    , font_family= "Verdana"
+    , align="left"
+    ,)
+    
+
+    fig.update_layout(title={ 'text': '<b>'+ nome+'<b>','y':0.9,'x':0.5,'xanchor': 'center','yanchor': 'top'},
+                            paper_bgcolor='rgba(0,0,0,0)', #added the backround collor to the plot 
+                            plot_bgcolor='rgba(0,0,0,0)',
+                             title_font_size=14,
+                             font_color = '#0D1018',
+                             #xaxis_title=f"{source}",
+                             yaxis_title=units, 
+                             template='plotly_white',
+                             font_family="Verdana",
+                             images=[dict(source='https://raw.githubusercontent.com/caiquecober/Research/master/35131080148.png',
+                                 xref="paper", yref="paper",
+                                 x=0.5, y=0.5,
+                                 sizex=0.75, sizey=0.75,
+                                 opacity=0.2,
+                                 xanchor="center",
+                                 yanchor="middle",
+                                 sizing="contain",
+                                 visible=True,
+                                 layer="below")],
+                             legend=dict(
+                                 orientation="h",
+                                 yanchor="bottom",
+                                 y=-0.29,
+                                 xanchor="center",
+                                 x=0.5,
+                                 font_family='Verdana'),
+                                 autosize=True,height=500,
+                                 #yaxis_tickformat = ',.0%'                                
+    
+                                 )
+    
+    if chart =='percent_change' or  chart == 'percent_change_12':
+            fig.update_layout(yaxis= { 'tickformat': ',.2%'})
+                                 
+    return fig
+
+
+col1, col2, col3, col4  = st.columns(5)
+uploaded_file = col1.file_uploader('Choose File')
+index_name =  col2.text_input('Index column name', 'Date')
+titulo1 =  col3.text_input('Title name', 'title')
+units1 =  col4.text_input('Unit ', 'index')
+source1 =  col5.text_input('Source name', 'Date')
+
+if uploaded_file is not None:
+    df1=pd.read_csv(uploaded_file)
+    charts =  ts_plot_mc(df1, titulo1,source1,units1, 'Normal')
+
+
+
 
 ########################################### banner final ###############################
 
@@ -293,11 +374,3 @@ html_line="""
 <p style="color:Gainsboro; text-align: right;">Desenvolvido por: Caíque Cober</p>
 """
 st.markdown(html_line, unsafe_allow_html=True)
-
-
-
-    
-
-  
-
-
