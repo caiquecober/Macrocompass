@@ -352,7 +352,7 @@ source1 =  col5.text_input('Source name', 'Date')
 
 st.markdown(html_line_2, unsafe_allow_html=True)
 if uploaded_file is not None:
-    df1=pd.read_csv(uploaded_file)
+    df1=pd.read_excel(uploaded_file)
     fig =  ts_plot_unique(df1, titulo1,source1,units1, 'Normal')
     st.plotly_chart(fig, use_container_width=True)
     
