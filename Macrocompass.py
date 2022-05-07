@@ -340,7 +340,7 @@ def ts_plot_mc(df, nome, source, units, chart):
     return fig
 
 
-col1, col2, col3, col4  = st.columns(5)
+col1, col2, col3, col4,col5  = st.columns(5)
 uploaded_file = col1.file_uploader('Choose File')
 index_name =  col2.text_input('Index column name', 'Date')
 titulo1 =  col3.text_input('Title name', 'title')
