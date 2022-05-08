@@ -52,7 +52,7 @@ html_br="""
 """
 
 html_personal_header = """ 
- <h1 style="font-size:300%; color:#034B88; font-family:Mulish; font-weight:800"> Make your own chart  
+ <h1 style="font-size:300%; color:#034B88; text-aling:center ;font-family:Mulish; font-weight:800"> Make your own chart  
  <hr style= "  display: block;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -350,8 +350,9 @@ def ts_plot_unique(df, nome, source, units, chart):
     return fig
 
 
-st.markdown(html_personal_header, unsafe_allow_html=True)
+
 st.markdown(html_line_2, unsafe_allow_html=True)
+st.markdown(html_personal_header, unsafe_allow_html=True)
 
 col1, col2, col3, col4,col5  = st.columns(5)
 uploaded_file = col1.file_uploader('Choose File')
@@ -380,7 +381,7 @@ html_line="""
 <br>
 <br>
 <br>
-<p style="color:Gainsboro; text-align: left;">Fonte: FRED.</p>
+<p style="color:Gainsboro; text-align: left;"></p>
 <hr style= "  display: block;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -388,6 +389,6 @@ html_line="""
   margin-right: auto;
   border-style: inset;
   border-width: 1.5px;">
-<p style="color:Gainsboro; text-align: right;">Desenvolvido por: Caíque Cober</p>
+<p style="color:Gainsboro; text-align: right;">Developed by: Caíque Cober</p>
 """
 st.markdown(html_line, unsafe_allow_html=True)
