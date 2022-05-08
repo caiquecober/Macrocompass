@@ -52,7 +52,7 @@ html_br="""
 """
 
 html_personal_header = """ 
- <h1 style="font-size:300%; color:#034B88; text-align: center ;font-family:Mulish; font-weight:500"> Make chart with excel data
+ <h1 style="font-size:100%; color:#034B88; text-align: center; font-family:Mulish; font-weight:800"> Make chart with excel data
  <hr style= "  display: block;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
