@@ -51,6 +51,17 @@ html_br="""
 <br>
 """
 
+html_personal_header = """ 
+ <h1 style="font-size:300%; color:#034B88; font-family:Mulish; font-weight:800"> Make your own chart  
+ <hr style= "  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;"></h1>
+  """
+
 #cofigs inciais
 link_imagem_stonex = 'https://raw.githubusercontent.com/caiquecober/Research/master/35131080148.png'
 
@@ -274,7 +285,6 @@ col4.download_button(
 
 ########################################### Gráfico Pessoal ###############################
 
-
 def ts_plot_unique(df, nome, source, units, chart):
     fig = go.Figure()
     #colors = [ '#0A3254', '#B2292E','#E0D253','#7AADD4','#336094']
@@ -340,7 +350,7 @@ def ts_plot_unique(df, nome, source, units, chart):
     return fig
 
 
-
+st.markdown(html_personal_header, unsafe_allow_html=True)
 st.markdown(html_line_2, unsafe_allow_html=True)
 
 col1, col2, col3, col4,col5  = st.columns(5)
