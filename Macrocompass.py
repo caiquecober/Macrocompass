@@ -123,8 +123,8 @@ def ts_plot_mc(code, nome, source, units, chart):
     
 
     fig.update_layout(title={ 'text': '<b>'+ nome+'<b>','y':0.9,'x':0.5,'xanchor': 'center','yanchor': 'top'},
-                            paper_bgcolor='rgba(0,0,0,0)', #added the backround collor to the plot 
-                            plot_bgcolor='rgba(0,0,0,0)',
+                            paper_bgcolor='rgba(255,255,240)', #added the backround collor to the plot 
+                            plot_bgcolor='rgba(255,255,240)',
                              title_font_size=14,
                              font_color = '#0D1018',
                              #xaxis_title=f"{source}",
