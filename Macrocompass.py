@@ -96,20 +96,30 @@ def ts_plot_mc(code, nome, source, units, chart):
 
     
     fig = go.Figure()
-    #colors = [ '#0A3254', '#B2292E','#E0D253','#7AADD4','#336094']
-    colors = ['#034B88', '#B55802', '#000000']
+    colors = ['#195385','#0d6986','#FF5003','#195385','#fead67','#266a7c','#3f6a73','#586b69','#716c5f','#8b6c56','#a46d4c','#bd6e42','#d66e39','#ef6f2f']
 
 
     for i in range(len(df.columns)):
         fig.add_trace(go.Scatter(
-                x=df.index, y=df.iloc[:, i], line=dict(color=colors[i], width=3), name=df.columns[i]))
+                x=df.index, y=df.iloc[:, i], line=dict(color=colors[i+2], width=3), name=str(df.columns[i])))
+        
+    # add traces for annotations and text for end of lines
+    # for i, d in enumerate(fig.data):
+    #     fig.add_scatter(x=[d.x[-1]], y = [d.y[-1]],
+    #                     mode = 'markers+text',
+    #                     text = d.y[-1].round(2),
+    #                     textfont = dict(color=d.line.color),
+    #                     textposition='middle right',
+    #                     marker = dict(color = d.line.color, size = 12),
+    #                     legendgroup = d.name,
+    #                     showlegend=False)
+                
 
-    
     fig.add_annotation(
-    text = (f"{source}")
+    text = (f"Source: Bloomberg, The MacroCompass.")
     , showarrow=False
     , x = 0
-    , y = -0.2
+    , y = -0.19
     , xref='paper'
     , yref='paper' 
     , xanchor='left'
@@ -119,39 +129,38 @@ def ts_plot_mc(code, nome, source, units, chart):
     , font=dict(size=10, color="grey")
     , font_family= "Verdana"
     , align="left"
-    ,)
+    )
     
+    fig.update_layout(title={ 'text': '<b>'+ nome +'<b>','y':0.95,'x':0.5,'xanchor': 'center','yanchor': 'top'},
+                            paper_bgcolor='rgba(0,0,0,0)', #added the backround collor to the plot 
+                            plot_bgcolor='rgba(0,0,0,0)',
+                            title_font_size=20,
+                            font_color = '#0D1018',
+                            #xaxis_title=f"{source}",
+                            yaxis_title=units, 
+                            template='plotly_white',
+                            font_family="Verdana",
+                            images=[dict(source='https://raw.githubusercontent.com/caiquecober/Research/master/35131080148.png',
+                                xref="paper", yref="paper",
+                                x=0.95, y=-0.13,
+                                sizex=0.14, sizey=0.14,
+                                opacity=0.8,
+                                xanchor="center",
+                                yanchor="middle",
+                                sizing="contain",
+                                visible=True,
+                                layer="below")],
+                            legend=dict(
+                                orientation="h",
+                                yanchor="bottom",
+                                y=1.01,
+                                xanchor="center",
+                                x=0.5,
+                                font_family='Verdana'),
+                                autosize=True,
+                                height=500,
+                                )
 
-    fig.update_layout(title={ 'text': '<b>'+ nome+'<b>','y':0.9,'x':0.5,'xanchor': 'center','yanchor': 'top'},
-                            paper_bgcolor='rgba(255,255,240)', #added the backround collor to the plot 
-                            plot_bgcolor='rgba(255,255,240)',
-                             title_font_size=14,
-                             font_color = '#0D1018',
-                             #xaxis_title=f"{source}",
-                             yaxis_title=units, 
-                             template='plotly_white',
-                             font_family="Verdana",
-                             images=[dict(source='https://raw.githubusercontent.com/caiquecober/Research/master/35131080148.png',
-                                 xref="paper", yref="paper",
-                                 x=0.5, y=0.5,
-                                 sizex=0.7, sizey=0.67,
-                                 opacity=0.2,
-                                 xanchor="center",
-                                 yanchor="middle",
-                                 sizing="contain",
-                                 visible=True,
-                                 layer="below")],
-                             legend=dict(
-                                 orientation="h",
-                                 yanchor="bottom",
-                                 y=-0.29,
-                                 xanchor="center",
-                                 x=0.5,
-                                 font_family='Verdana'),
-                                 autosize=True,height=500,
-                                 #yaxis_tickformat = ',.0%'                                
-    
-                                 )
     
     if chart =='percent_change' or  chart == 'percent_change_12':
             fig.update_layout(yaxis= { 'tickformat': ',.2%'})
