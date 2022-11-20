@@ -13,7 +13,12 @@ import requests
 from io import StringIO, BytesIO
 import base64
 import io
+from fredapi import Fred
+
 api_key = 'daece1e7e3daf0bcd26c06cdef0009bb'
+
+fred = Fred(api_key= api_key)
+
 ############################################################## Streamlit APP ##################################################################################################
 html_header="""
 <head>
@@ -218,6 +223,11 @@ def get_series(id_selected):
 
 
 ################################################ Streamlit App #########################################################################
+
+col1, col2,_, col3 = st.columns((2,2,0.5,2))
+fred_code = col1.text_input('Search', value="CPI")
+search = fred.search(fred_code)
+st.write(search)
 
 #Options headers
 col1, col2,_, col3 = st.columns((2,2,0.5,2))
