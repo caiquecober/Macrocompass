@@ -225,8 +225,8 @@ def get_series(id_selected):
 ################################################ Streamlit App #########################################################################
 
 col1, col2,_, col3 = st.columns((2,2,0.5,2))
-fred_code = col1.text_input('Search', value="CPI")
-search = fred.search(fred_code)
+freds = col1.text_input('Search', value="CPI")
+search = fred.search(freds)
 st.write(search)
 
 #Options headers
