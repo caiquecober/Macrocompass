@@ -225,9 +225,9 @@ def get_series(id_selected):
 ################################################ Streamlit App #########################################################################
 
 col1, col2,_, col3 = st.columns((2,2,0.5,2))
-freds = col1.text_input('Search', value="potential gdp")
-search = fred.search(freds)
-st.write(search)
+name_input = col1.text_input('Search', value="potential gdp")
+search = fred.search(name_input)
+st.DataFrame(search)
 
 #Options headers
 col1, col2,_, col3 = st.columns((2,2,0.5,2))
