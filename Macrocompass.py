@@ -227,7 +227,8 @@ def get_series(id_selected):
 col1, col2,_, col3 = st.columns((2,2,0.5,2))
 name_input = col1.text_input('Search', value="potential gdp")
 search = fred.search(name_input)
-st.DataFrame(search)
+print(search)
+# st.DataFrame(search)
 
 #Options headers
 col1, col2,_, col3 = st.columns((2,2,0.5,2))
