@@ -148,7 +148,7 @@ def ts_plot_mc(code, nome, source, units, chart):
                             images=[dict(source='https://raw.githubusercontent.com/caiquecober/Research/master/35131080148.png',
                                 xref="paper", yref="paper",
                                 x=1.05, y=1.15,
-                                sizex=0.17, sizey=0.17,
+                                sizex=0.2, sizey=0.2,
                                 opacity=0.8,
                                 xanchor="center",
                                 yanchor="middle",
