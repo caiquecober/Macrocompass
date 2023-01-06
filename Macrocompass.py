@@ -165,6 +165,8 @@ def ts_plot_mc(code, nome, source, units, chart):
                                 autosize=True,
                                 height=500,
                                 )
+      fig.update_xaxes(showgrid=False,showline=True, linewidth=1, linecolor='black')
+    fig.update_yaxes(showgrid=False,showline=True, linewidth=1, linecolor='black')
 
     
     if chart =='percent_change' or  chart == 'percent_change_12':
